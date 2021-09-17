@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">MyBid</string>
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string-array name="array_category">
+        <item>Clothing</item>
+        <item>Toys/Games</item>
+        <item>Kitchen</item>
+        <item>OfficeProducts</item>
+        <item>Household/Furnitures</item>
+        <item>Shoes</item>
+        <item>Jewelry</item>
+        <item>Electronics</item>
+        <item>Baby</item>
+        <item>Industrial</item>
+        <item>Automotive/Parts/Accessories</item>
+        <item>CellPhone/Accessories</item>
+        <item>Computers</item>
+        <item>Musical</item>
+        <item>Constructions</item>
+        <item>Array Item Two</item>
+        <item>Sports</item>
+        <item>School Materials</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="array_location">
+        <item>Addis Ababa</item>
+        <item>Afar</item>
+        <item>Amhara</item>
+        <item>Benishangul-Gumuz</item>
+        <item>Gambella</item>
+        <item>Harari</item>
+        <item>Oromia</item>
+        <item>Sidama</item>
+        <item>SNNPR</item>
+        <item>Tigray</item>
+    </string-array>
+</resources>

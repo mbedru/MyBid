@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddItem">
+
+        <TextView
+            android:id="@+id/txtadditm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="#3770A3"
+            android:text="Add Auction Item"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/etadditmname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditm"
+            android:layout_marginTop="25dp"
+            android:hint="Name"
+            />
+
+        <TextView
+            android:id="@+id/txtadditmcategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp"
+            android:text="Category:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etadditmname" />
+        <Spinner
+            android:id="@+id/spinadditmcategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="10sp"
+            android:textSize="20sp"
+
+            android:drawSelectorOnTop="true"
+            android:entries="@array/array_category"
+            app:layout_constraintTop_toBottomOf="@+id/etadditmname"
+            app:layout_constraintLeft_toRightOf="@+id/txtadditmcategory"
+        />
+        <TextView
+            android:id="@+id/txtadditmlocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="20sp"
+            android:text="Location:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditmcategory" />
+        <Spinner
+            android:id="@+id/spinadditmlocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="10sp"
+            android:textSize="20sp"
+
+            android:drawSelectorOnTop="true"
+            android:entries="@array/array_location"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditmcategory"
+            app:layout_constraintLeft_toRightOf="@+id/txtadditmlocation"
+            />
+
+        <TextView
+            android:id="@+id/txtadditmcondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Condition"
+            android:paddingLeft="20dp"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditmlocation" />
+
+        <RadioGroup
+            android:id="@+id/rgadditmcondition"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditmlocation"
+            app:layout_constraintLeft_toRightOf="@+id/txtadditmcondition"
+            android:layout_marginTop="10dp">
+
+            <RadioButton
+                android:id="@+id/rbnewadditm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="new"/>
+            <RadioButton
+                android:id="@+id/rbslightusedadditm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="slightly used"/>
+            <RadioButton
+                android:id="@+id/rbusedadditm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+
+                android:text="used"/>
+        </RadioGroup>
+
+
+        <EditText
+            android:id="@+id/etadditmpricestart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="250dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditmcondition"
+            android:layout_marginTop="20dp"
+            android:digits="0123456789."
+            android:inputType="number"
+            android:hint="Starting price"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$ Birr"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:textSize="25dp"
+            app:layout_constraintLeft_toRightOf="@+id/etadditmpricestart"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditmcondition"
+
+            />
+
+        <TextView
+            android:id="@+id/txtadditmDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Description:"
+            android:paddingLeft="20dp"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etadditmpricestart" />
+
+        <EditText
+            android:id="@+id/etadditmDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:scrollbars="vertical"
+            android:lines="2"
+            android:maxLength="100"
+            android:singleLine="false"
+            app:layout_constraintTop_toBottomOf="@+id/txtadditmDescription"
+            />
+
+            <Button
+            android:id="@+id/btnadditmimgchoose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#6481AA"
+            android:text="Choose Picture"
+            android:textAllCaps="false" android:layout_marginStart="20dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etadditmDescription" />
+
+        <ImageView
+            android:id="@+id/ivimgadditm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnadditmimgchoose" />
+
+        <Button
+            android:id="@+id/btnadditm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="#65611A"
+            android:text="add item"
+            android:textAllCaps="true"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivimgadditm" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

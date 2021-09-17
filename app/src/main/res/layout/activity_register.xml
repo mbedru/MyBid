@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register">
+
+    <TextView
+        android:id="@+id/txtreg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="#3770A3"
+        android:text="REGISTER"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/etregname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtreg"
+        android:layout_marginTop="25dp"
+        android:hint="Name"
+        />
+    <EditText
+        android:id="@+id/etregemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/etregname"
+        android:layout_marginTop="20dp"
+        android:hint="Email"
+        />
+
+    <EditText
+        android:id="@+id/etregphone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="Phone"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/etregemail" />
+
+    <TextView
+        android:id="@+id/txtgender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Gender"
+        android:paddingLeft="20dp"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etregphone" />
+
+    <RadioGroup
+        android:id="@+id/rgreggender"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/etregphone"
+        app:layout_constraintLeft_toRightOf="@+id/txtgender"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/radmale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="male"/>
+        <RadioButton
+            android:id="@+id/radfemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="female"/>
+    </RadioGroup>
+    <EditText
+    android:id="@+id/etregpass"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    app:layout_constraintTop_toBottomOf="@+id/rgreggender"
+    android:layout_marginTop="10dp"
+    android:hint="Password"
+    />
+
+    <EditText
+        android:id="@+id/etregconfirmpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/etregpass"
+        android:layout_marginTop="20dp"
+        android:hint="Confirm Password"
+        />
+
+    <EditText
+        android:id="@+id/etregdeposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/etregconfirmpass"
+        android:layout_marginTop="20dp"
+        android:digits="0123456789."
+        android:inputType="number"
+        android:hint="deposit (money available)"
+        />
+
+    <Button
+        android:id="@+id/btnregimgchoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="245dp"
+        android:layout_marginBottom="42dp"
+        android:backgroundTint="#6481AA"
+        android:text="Choose Picture"
+
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/btnReg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etregdeposit" />
+
+    <ImageView
+        android:id="@+id/ivimgreg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnregimgchoose" />
+
+    <Button
+        android:id="@+id/btnReg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#22717C"
+        android:text="Register"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivimgreg" />
+
+    <TextView
+        android:id="@+id/txtlogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="170dp"
+        android:text="login"
+        android:textAlignment="center"
+        android:textColor="#951E15"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnReg"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
