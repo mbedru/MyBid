@@ -1,17 +1,13 @@
 
-package com.home.mybid;
+package com.mybid.activities;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
-import android.media.AudioManager;//for debugging
-import android.media.ToneGenerator;//for debugging
 import android.net.Uri;//for image
 import android.os.Build;
 import android.os.Bundle;//for image
@@ -23,10 +19,15 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.home.mybid.ui.SQLiteHelper;
+import com.home.mybid.R;
+//import com.mybid.daoImplementors.UserDaoImpl;
+import com.mybid.daos.ProductDao;
+import com.mybid.models.Product;
+//import com.mybid.models.User;
+import com.mybid.sqlHelper.SQLiteHelper;
+import com.mybid.daoImplementors.ProductDaoImpl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -48,50 +49,32 @@ public class AddItem extends AppCompatActivity {
     //private TextView tvLoginItemAdd;
     private Button btnItemAdd;
     private Uri imgUriItemAdd;
-    private Bitmap imgBitmapItemAdd ;
+    private Bitmap imgBitmapItemAdd;
 
     private Integer conditionItemAdd; //NEW(0) ,SLIGHTLYUSED(1) ,USED(2)
 
-    SQLiteHelper sqlHelperItemAdd;
     private static final int REItemAddLT_LOAD_IMAGE = 1;
-    //ToneGenerator toneG;//for debugging
+
+
+    ProductDao ItemDaoandImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_add);
-        etNameItemAdd = (EditText) findViewById(R.id.etregname);
-
-        etNameItemAdd = (EditText) findViewById(R.id.etadditmname);
-        spinCategoryItemAdd = (Spinner) findViewById(R.id.spinadditmcategory);
-        spinLocationItemAdd = (Spinner) findViewById(R.id.spinadditmlocation);
-        rgConditionItemAdd = (RadioGroup) findViewById(R.id.rgadditmcondition);
-        rbNewItemAdd = (RadioButton) findViewById(R.id.rbnewadditm);
-        rbSlightlyUsedItemAdd = (RadioButton) findViewById(R.id.rbslightusedadditm);
-        rbUsedItemAdd = (RadioButton) findViewById(R.id.rbusedadditm);
-        etPriceStatrtItemAdd = (EditText) findViewById(R.id.etadditmpricestart);
-        etDescriptionItemAdd = (EditText) findViewById(R.id.etadditmDescription);
-        btnChooseImgItemAdd = (Button) findViewById(R.id.btnadditmimgchoose);
-        ivShowPicItemAdd = (ImageView) findViewById(R.id.ivimgadditm);
-
-       // tvLoginItemAdd = (TextView) findViewById(R.id.txtlogin);
-        btnItemAdd = (Button) findViewById(R.id.btnadditm);
-
-        sqlHelperItemAdd = new SQLiteHelper(AddItem.this);
-        //toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
-
+        initWidgets();
 
         rgConditionItemAdd.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rbNewItemAdd.isChecked())
-                    //Toast.makeText(Register.this, "male", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RegisterActivity.this, "male", Toast.LENGTH_SHORT).show();
                     conditionItemAdd = 0;
                 else if (rbSlightlyUsedItemAdd.isChecked())
-                    //Toast.makeText(Register.this, "female", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RegisterActivity.this, "female", Toast.LENGTH_SHORT).show();
                     conditionItemAdd = 1;
                 else if (rbUsedItemAdd.isChecked())
-                    //Toast.makeText(Register.this, "female", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RegisterActivity.this, "female", Toast.LENGTH_SHORT).show();
                     conditionItemAdd = 2;
             }
 
@@ -105,26 +88,33 @@ public class AddItem extends AppCompatActivity {
 
             }
         });
-
         btnItemAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //changing bitmap to byte[] (to make it able to be stored in the sqlite)
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 imgBitmapItemAdd.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] imgByte = byteArrayOutputStream.toByteArray();
-                boolean insert = sqlHelperItemAdd.addItem
-                        (etNameItemAdd.getText().toString(), 0, 1, conditionItemAdd,spinLocationItemAdd.getSelectedItem().toString(),
-                          spinCategoryItemAdd.getSelectedItem().toString(), etDescriptionItemAdd.getText().toString(), Integer.parseInt(etPriceStatrtItemAdd.getText().toString()),
-                           imgByte);
 
-
-                if (insert) Toast.makeText(AddItem.this, "Registered", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(AddItem.this, "Error ...", Toast.LENGTH_SHORT).show();
+                //populate user but w/out id(null) b/c gena register altederegem
+                Product product = new Product(null, etNameItemAdd.getText().toString(), null, null, 1,
+                        conditionItemAdd, spinLocationItemAdd.getSelectedItem().toString(),
+                        spinCategoryItemAdd.getSelectedItem().toString(), Double.parseDouble(etPriceStatrtItemAdd.getText().toString()),
+                        null, etDescriptionItemAdd.getText().toString(), imgByte);
+                //send the us
+                ItemDaoandImpl = new ProductDaoImpl(AddItem.this);
+                boolean added = ItemDaoandImpl.addProduct(product);
+                if (added) {
+                    Toast.makeText(getApplicationContext(), "Item Added", Toast.LENGTH_SHORT).show();
+                    /*Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(i);
+                    finish();*/
+                } else
+                    Toast.makeText(getApplicationContext(), "Not added", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
 
     ///////////////   FOR IMAGE  //////////
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -161,10 +151,28 @@ public class AddItem extends AppCompatActivity {
             }
     );
 
+
+    public void initWidgets() {
+        //etNameItemAdd = (EditText) findViewById(R.id.etregname);
+
+        etNameItemAdd = (EditText) findViewById(R.id.etadditmname);
+        spinCategoryItemAdd = (Spinner) findViewById(R.id.spinadditmcategory);
+        spinLocationItemAdd = (Spinner) findViewById(R.id.spinadditmlocation);
+        rgConditionItemAdd = (RadioGroup) findViewById(R.id.rgadditmcondition);
+        rbNewItemAdd = (RadioButton) findViewById(R.id.rbnewadditm);
+        rbSlightlyUsedItemAdd = (RadioButton) findViewById(R.id.rbslightusedadditm);
+        rbUsedItemAdd = (RadioButton) findViewById(R.id.rbusedadditm);
+        etPriceStatrtItemAdd = (EditText) findViewById(R.id.etadditmpricestart);
+        etDescriptionItemAdd = (EditText) findViewById(R.id.etadditmDescription);
+        btnChooseImgItemAdd = (Button) findViewById(R.id.btnadditmimgchoose);
+        ivShowPicItemAdd = (ImageView) findViewById(R.id.ivimgadditm);
+
+        // tvLoginItemAdd = (TextView) findViewById(R.id.txtlogin);
+        btnItemAdd = (Button) findViewById(R.id.btnadditm);
+
+    }
+
 }
-
-
-
 
 //library MediaStore.Images.Media.getBitmap was deprecated in API 29. The recommended way is to use ImageDecoder.createSource which was added in API 28
     /*val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {//this is how you check sdk version while running the app

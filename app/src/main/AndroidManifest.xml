@@ -12,18 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBid">
-        <activity android:name=".AddItem"><intent-filter>
+        <activity android:name="com.mybid.activities.AddItem"><intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter></activity>
-        <activity android:name=".ItemActivity" />
-        <activity android:name=".UserActivity" />
-        <activity android:name=".Register"></activity>
+        <activity android:name="com.mybid.activities.ItemActivity" />
+        <activity android:name="com.mybid.activities.UserActivity" />
+        <activity android:name="com.mybid.activities.RegisterActivity"></activity>
         <activity
-            android:name=".Login"
-            android:label="mb" />
-        <activity android:name=".StartActivity">
+            android:name="com.mybid.activities.LoginActivity"></activity>
+
+        <activity android:name="com.mybid.activities.StartActivity">
 
         </activity>
     </application>

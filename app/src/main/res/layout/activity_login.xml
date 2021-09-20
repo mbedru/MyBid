@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context="com.mybid.activities.LoginActivity">
     <TextView
         android:id="@+id/txtmybidapp"
         android:layout_width="match_parent"
@@ -25,6 +25,7 @@
         app:layout_constraintTop_toTopOf="@+id/txtmybidapp"
         android:layout_marginTop="80dp"
         android:hint="Email"
+        android:text="mame@yahoo"
         />
     <EditText
         android:id="@+id/loginpass"
@@ -35,6 +36,7 @@
         app:layout_constraintTop_toTopOf="@+id/loginemail"
         android:layout_marginTop="80dp"
         android:hint="Password"
+        android:text="mame@123"
         />
 
     <Button

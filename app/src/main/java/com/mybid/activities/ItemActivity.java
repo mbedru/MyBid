@@ -1,8 +1,10 @@
-package com.home.mybid;
+package com.mybid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.home.mybid.R;
 
 public class ItemActivity extends AppCompatActivity {
 
