@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;//for image
@@ -28,6 +29,7 @@ import com.mybid.models.Product;
 //import com.mybid.models.User;
 import com.mybid.sqlHelper.SQLiteHelper;
 import com.mybid.daoImplementors.ProductDaoImpl;
+import com.mybid.util.SharedPrefUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -63,6 +65,7 @@ public class AddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_add);
         initWidgets();
+        SharedPrefUtil shPrUtil = new SharedPrefUtil();
 
         rgConditionItemAdd.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -95,9 +98,10 @@ public class AddItem extends AppCompatActivity {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 imgBitmapItemAdd.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] imgByte = byteArrayOutputStream.toByteArray();
-
-                //populate user but w/out id(null) b/c gena register altederegem
-                Product product = new Product(null, etNameItemAdd.getText().toString(), null, null, 1,
+      //take id from saved(logged in) shared preferences
+                String idSharedPr = shPrUtil.getShPrefId(AddItem.this);
+                //populate product but w/out id(null) b/c gena register altederegem
+                Product product = new Product(null, etNameItemAdd.getText().toString(),idSharedPr  , null, 1,
                         conditionItemAdd, spinLocationItemAdd.getSelectedItem().toString(),
                         spinCategoryItemAdd.getSelectedItem().toString(), Double.parseDouble(etPriceStatrtItemAdd.getText().toString()),
                         null, etDescriptionItemAdd.getText().toString(), imgByte);
@@ -106,9 +110,9 @@ public class AddItem extends AppCompatActivity {
                 boolean added = ItemDaoandImpl.addProduct(product);
                 if (added) {
                     Toast.makeText(getApplicationContext(), "Item Added", Toast.LENGTH_SHORT).show();
-                    /*Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent i = new Intent(AddItem.this, StartActivity.class);
                     startActivity(i);
-                    finish();*/
+                    finish();
                 } else
                     Toast.makeText(getApplicationContext(), "Not added", Toast.LENGTH_SHORT).show();
             }

@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.home.mybid.R;
 import com.mybid.sqlHelper.SQLiteHelper;
+import com.mybid.util.SharedPrefUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -102,11 +103,14 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean registered = regUserDaoandImpl.addUser(addedUser);
                 if (registered) {
                     Toast.makeText(getApplicationContext(), "Registered", Toast.LENGTH_SHORT).show();
-                    User UserLoggedIn = regUserDaoandImpl.getUserByUNandPASS(RegisterActivity.this, etEmailSU.getText().toString(), etPassSU.getText().toString());
+                    User UserLoggedIn = regUserDaoandImpl.getUserByUNandPASS(/*RegisterActivity.this,*/ etEmailSU.getText().toString(), etPassSU.getText().toString());
                     if (UserLoggedIn == null)
                         Toast.makeText(getApplicationContext(), "not logged in", Toast.LENGTH_SHORT).show();
                     else {
-                        Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+                        SharedPrefUtil shPrUtil = new SharedPrefUtil();
+                        shPrUtil.saveDataShPref(RegisterActivity.this,UserLoggedIn);
+
+                        Intent i = new Intent(RegisterActivity.this, StartActivity.class);
                         i.putExtra(USER_FROM_LOGINORREGISTER_TO_START_EXTRA, UserLoggedIn);
                         startActivity(i);
                         finish();

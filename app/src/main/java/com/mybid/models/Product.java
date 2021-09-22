@@ -14,6 +14,9 @@ public class Product {
     private String pdesc;
     private byte[] pimgByte;
 
+    public Product(){
+    }
+
     public Product(String pid, String pname, String pselid, String pbuyid, Integer pstatus, Integer pcondition,
                    String plocation, String pcategory, Double pstartprice, Double psoldprice, String pdesc, byte[] pimgByte) {
         this.pid = pid;
