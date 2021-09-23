@@ -1,6 +1,9 @@
 package com.mybid.models;
 
-public class Product {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Product implements Parcelable {
     private String pid;
     private String pname;
     private String pselid;
@@ -32,6 +35,49 @@ public class Product {
         this.pdesc = pdesc;
         this.pimgByte = pimgByte;
     }
+
+    protected Product(Parcel in) {
+        pid = in.readString();
+        pname = in.readString();
+        pselid = in.readString();
+        pbuyid = in.readString();
+        if (in.readByte() == 0) {
+            pstatus = null;
+        } else {
+            pstatus = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            pcondition = null;
+        } else {
+            pcondition = in.readInt();
+        }
+        plocation = in.readString();
+        pcategory = in.readString();
+        if (in.readByte() == 0) {
+            pstartprice = null;
+        } else {
+            pstartprice = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            psoldprice = null;
+        } else {
+            psoldprice = in.readDouble();
+        }
+        pdesc = in.readString();
+        pimgByte = in.createByteArray();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public String getPid() {
         return pid;
@@ -127,5 +173,46 @@ public class Product {
 
     public void setPimgByte(byte[] pimgByte) {
         this.pimgByte = pimgByte;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(pid);
+        dest.writeString(pname);
+        dest.writeString(pselid);
+        dest.writeString(pbuyid);
+        if (pstatus == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(pstatus);
+        }
+        if (pcondition == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(pcondition);
+        }
+        dest.writeString(plocation);
+        dest.writeString(pcategory);
+        if (pstartprice == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(pstartprice);
+        }
+        if (psoldprice == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(psoldprice);
+        }
+        dest.writeString(pdesc);
+        dest.writeByteArray(pimgByte);
     }
 }

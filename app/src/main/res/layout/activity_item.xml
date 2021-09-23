@@ -1,9 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.mybid.activities.ItemActivity">
+    <ImageView
+        android:id="@+id/prodbid_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </ImageView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="product: "
+            />
+        <TextView
+            android:id="@+id/tvbid_pname"
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="seller: "
+            />
+        <TextView
+        android:id="@+id/tvbid_pselname"
+            android:text="seller"
+            android:paddingLeft="24dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="condition: "
+            />
+        <TextView
+            android:id="@+id/tvbid_pcond"
+            android:text="condition"
+            android:paddingLeft="0dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location:"
+            />
+        <TextView
+            android:id="@+id/tvbid_plocation"
+            android:text="location"
+            android:drawableLeft="@drawable/ic_location"
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="description:"
+            />
+        <TextView android:id="@+id/tvbid_pdesc"
+            android:text="description"
+            android:paddingLeft="2sp"
+            android:maxWidth="350dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="won by :"
+            />
+        <TextView
+            android:id="@+id/tvbid_pbuyname"
+            android:text="no one"
+            android:paddingLeft="30dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#FF2222"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginBottom="0dp"
+            android:textSize="10dp"
+            android:drawableLeft="@drawable/ic_money"
+            />
+        <EditText
+            android:id="@+id/etbid_offer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:digits="0123456789."
+            android:hint="your bid offer"
+            android:textAlignment="viewStart"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnbid_bidnow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp"
+        android:text="bid now"/>
+
+</LinearLayout>

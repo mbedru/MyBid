@@ -50,8 +50,10 @@ public class AddItem extends AppCompatActivity {
     private ImageView ivShowPicItemAdd;
     //private TextView tvLoginItemAdd;
     private Button btnItemAdd;
+
     private Uri imgUriItemAdd;
     private Bitmap imgBitmapItemAdd;
+    private Bitmap imgBitmapAddItemCompressed;
 
     private Integer conditionItemAdd; //NEW(0) ,SLIGHTLYUSED(1) ,USED(2)
 
@@ -96,7 +98,7 @@ public class AddItem extends AppCompatActivity {
             public void onClick(View v) {
                 //changing bitmap to byte[] (to make it able to be stored in the sqlite)
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                imgBitmapItemAdd.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                imgBitmapAddItemCompressed.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] imgByte = byteArrayOutputStream.toByteArray();
       //take id from saved(logged in) shared preferences
                 String idSharedPr = shPrUtil.getShPrefId(AddItem.this);
@@ -120,35 +122,38 @@ public class AddItem extends AppCompatActivity {
     }
 
 
-    ///////////////   FOR IMAGE  //////////
-    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+    ///////////////   FOR IMAGE accepting as uri and change it to Bitmap(presentable image)  //////////
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult( new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
 
-                    //this is the reItemAddlt of uri
+                    //this is the result of uri
                     if (result != null) {
                         ivShowPicItemAdd.setImageURI(result);
-                        //reItemAddlt put in imageuri
+                        //result put in imageuri
                         imgUriItemAdd = result;
-                        ////////////////////////////////////////////////
+                        ////////////////////////////////////////////////to change uri to bitamp(visible image form);
 //library MediaStore.Images.Media.getBitmap was deprecated in API 29. The recommended way is to use ImageDecoder.createSource which was added in API 28
                         //for API  and above
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {//this is how you check sdk version while running the app
 
                             try {
                                 imgBitmapItemAdd = ImageDecoder.decodeBitmap(ImageDecoder.createSource(AddItem.this.getContentResolver(), imgUriItemAdd));
+                                imgBitmapAddItemCompressed = Bitmap.createScaledBitmap(imgBitmapItemAdd,400,400,true);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         } else { //for API less than 28
                             try {
                                 imgBitmapItemAdd = MediaStore.Images.Media.getBitmap(AddItem.this.getContentResolver(), imgUriItemAdd);
+                                imgBitmapAddItemCompressed = Bitmap.createScaledBitmap(imgBitmapItemAdd,400,400,true);
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
                         }
-                        //at this stage "bitmap" ItemAddccessfully contains the image
+                        //at this stage "bitmap" successfully contains the image
                         //ivShowPic.setImageBitmap(bitmap);
                     }
                 }
@@ -156,7 +161,7 @@ public class AddItem extends AppCompatActivity {
     );
 
 
-    public void initWidgets() {
+    private void initWidgets() {
         //etNameItemAdd = (EditText) findViewById(R.id.etregname);
 
         etNameItemAdd = (EditText) findViewById(R.id.etadditmname);

@@ -60,10 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 }
-
             }
-
-
         });
         tvSignupLI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    public void initWidgets() {
+    private void initWidgets() {
         tvSignupLI = (TextView) findViewById(R.id.txtnewaccount);
         btnLoginLI = (Button) findViewById(R.id.btnlogin);
         etEmailLI = (EditText) findViewById(R.id.loginemail);

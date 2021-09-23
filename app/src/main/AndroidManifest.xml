@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBid">
         <activity android:name="com.mybid.activities.AddItem" android:label="addItem"></activity>
-        <activity android:name="com.mybid.activities.ItemActivity" android:label="ItemActivity" />
+        <activity android:name="com.mybid.activities.ItemActivity" android:label="ItemActivity"
+                    android:parentActivityName="com.mybid.activities.StartActivity"/>
         <activity android:name="com.mybid.activities.UserActivity" android:label="UserActivity"
             android:parentActivityName="com.mybid.activities.RegisterActivity"/>
         <activity android:name="com.mybid.activities.RegisterActivity" android:label="RegisterActivity"></activity>

@@ -48,8 +48,10 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView ivShowPicSU;
     private TextView tvLoginSU;
     private Button btnRegSU;
+
     private Uri imgUriSU;
     private Bitmap imgBitmapSU ;
+    private Bitmap imgBitmapSUCompressed;
 
     private String genderSU;
 
@@ -91,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //changing bitmap to byte[] (to make it able to be stored in the sqlite)
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                imgBitmapSU.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                imgBitmapSUCompressed.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] imgByte = byteArrayOutputStream.toByteArray();
 
                 //populate user but w/out id(null) b/c gena register altederegem
@@ -131,7 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     ///////////////   FOR IMAGE accepting as uri and change it to Bitmap(presentable image)  //////////
-    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult( new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
@@ -149,12 +151,15 @@ public class RegisterActivity extends AppCompatActivity {
 
                             try {
                                 imgBitmapSU = ImageDecoder.decodeBitmap(ImageDecoder.createSource(RegisterActivity.this.getContentResolver(), imgUriSU));
+                                //added-> (compressing the pic to 400*400) because the phone finnd it difficult to upload big files.
+                                imgBitmapSUCompressed = Bitmap.createScaledBitmap(imgBitmapSU,400,400,true);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         } else { //for API less than 28
                             try {
                                 imgBitmapSU = MediaStore.Images.Media.getBitmap(RegisterActivity.this.getContentResolver(), imgUriSU);
+                                imgBitmapSUCompressed = Bitmap.createScaledBitmap(imgBitmapSU,400,400,true);
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
@@ -166,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
     );
 
-    public void initWidgets() {
+    private void initWidgets() {
         etNameSU = (EditText) findViewById(R.id.etregname);
         etEmailSU = (EditText) findViewById(R.id.etregemail);
         etPhoneSU = (EditText) findViewById(R.id.etregphone);
